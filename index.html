@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>أنا مين؟ 🎭</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- الخلفية المتحركة -->
+    <div class="bg-effects">
+        <div class="bg-orb bg-orb-1"></div>
+        <div class="bg-orb bg-orb-2"></div>
+        <div class="bg-orb bg-orb-3"></div>
+        <div class="floating-particles" id="particles"></div>
+    </div>
+
+    <!-- شاشة البداية -->
+    <div id="screen-home" class="screen active">
+        <div class="container center-content">
+            <div class="logo-section">
+                <div class="logo-glow">
+                    <div class="logo-icon">🎭</div>
+                </div>
+                <h1 class="game-title">أنا مين؟</h1>
+                <div class="title-line"></div>
+                <p class="game-subtitle">اللعبة الجماعية الأمورة 🔥</p>
+                <p class="game-desc">كل واحد عنده كارت مش شايفه.. لازم يسأل ويخمن هو مين!</p>
+            </div>
+            <div class="home-buttons">
+                <button class="btn btn-primary btn-large pulse-glow" onclick="showSetup()">🎉 اعمل فورة</button>
+                <button class="btn btn-glass btn-large" onclick="showHowToPlay()">📖 إزاي نلعب؟</button>
+            </div>
+            <div class="home-footer">
+                <div class="footer-chips">
+                    <span class="chip">👥 2-10 لاعبين</span>
+                    <span class="chip">📱 جهاز واحد</span>
+                    <span class="chip">⚡ أوفلاين</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- شاشة الشرح -->
+    <div id="screen-howto" class="screen">
+        <div class="container">
+            <div class="howto-header">
+                <h2 class="screen-title">📖 إزاي نلعب؟</h2>
+                <p class="howto-subtitle">شرح سريع في 4 خطوات</p>
+            </div>
+
+            <div class="howto-steps">
+                <div class="howto-step glass-card">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>⚙️ جهّز الفورة</h3>
+                        <p>ضيف أسماء اللاعبين واختار الباكدجات اللي عايزها (كورة، أنمي، أكلات...) وحدد عدد الجولات والوقت.</p>
+                    </div>
+                </div>
+
+                <div class="howto-step glass-card">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>🎴 شوف كروت صحابك</h3>
+                        <p>كل لاعب بياخد الموبايل ويشوف كروت الباقي بس مش بيشوف كارته! كارتك سر عليك وبس 😄</p>
+                    </div>
+                </div>
+
+                <div class="howto-step glass-card">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>❓ اسأل واعرف</h3>
+                        <p>في كل جولة، اللاعبين بيسألوا بعض أسئلة أيوه/لأ عشان يعرفوا هم مين. الموبايل بينظم الدور.</p>
+                    </div>
+                </div>
+
+                <div class="howto-step glass-card">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>🤔 خمّن!</h3>
+                        <p>لما الوقت يخلص، كل لاعب يخمن هو مين. لو صح +2 نقطة، لو غلط -1 نقطة. اللي نقطه أكتر يكسب! 🏆</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="howto-tips glass-card">
+                <h3>💡 نصائح</h3>
+                <ul>
+                    <li>اسأل أسئلة ذكية زي "أنا حاجة بتتاكل؟" أو "أنا شخص مشهور؟"</li>
+                    <li>حاول تتذكر إجابات الناس عشان تجمع معلومات</li>
+                    <li>ممكن تضلل صحابك بإجاباتك 😈</li>
+                </ul>
+            </div>
+
+            <button class="btn btn-primary btn-large" onclick="showScreen('screen-home')">👍 فهمت، رجّعني!</button>
+        </div>
+    </div>
+
+    <!-- شاشة الإعدادات -->
+    <div id="screen-setup" class="screen">
+        <div class="container">
+            <h2 class="screen-title">⚙️ إعدادات الفورة</h2>
+
+            <div class="form-group glass-card">
+                <label>🏷️ اسم الفورة</label>
+                <input type="text" id="partyName" placeholder="مثلاً: قعدة صحاب" maxlength="30">
+            </div>
+
+            <div class="form-group glass-card">
+                <label>📝 وصف (اختياري)</label>
+                <input type="text" id="partyDesc" placeholder="مثلاً: عند أحمد في البيت" maxlength="50">
+            </div>
+
+            <div class="form-group glass-card">
+                <label>👥 اللاعبين</label>
+                <div id="players-list" class="players-list"></div>
+                <div class="add-player-row">
+                    <input type="text" id="newPlayerName" placeholder="اسم اللاعب" maxlength="20" onkeypress="if(event.key==='Enter')addPlayer()">
+                    <button class="btn btn-secondary btn-small" onclick="addPlayer()">+ ضيف</button>
+                </div>
+                <p class="hint" id="players-count">عدد اللاعبين: 0 (الحد الأدنى 2)</p>
+            </div>
+
+            <div class="form-group glass-card">
+                <label>🔄 عدد الجولات</label>
+                <div class="options-row" id="rounds-options">
+                    <button class="option-btn" data-value="1" onclick="selectOption('rounds',1,this)">1</button>
+                    <button class="option-btn" data-value="2" onclick="selectOption('rounds',2,this)">2</button>
+                    <button class="option-btn selected" data-value="4" onclick="selectOption('rounds',4,this)">4</button>
+                    <button class="option-btn" data-value="5" onclick="selectOption('rounds',5,this)">5</button>
+                    <button class="option-btn" data-value="7" onclick="selectOption('rounds',7,this)">7</button>
+                    <button class="option-btn" data-value="10" onclick="selectOption('rounds',10,this)">10</button>
+                </div>
+            </div>
+
+            <div class="form-group glass-card">
+                <label>⏱️ وقت الجولة</label>
+                <div class="options-row" id="time-options">
+                    <button class="option-btn" data-value="20" onclick="selectOption('time',20,this)">20s</button>
+                    <button class="option-btn" data-value="40" onclick="selectOption('time',40,this)">40s</button>
+                    <button class="option-btn selected" data-value="60" onclick="selectOption('time',60,this)">60s</button>
+                    <button class="option-btn" data-value="90" onclick="selectOption('time',90,this)">90s</button>
+                    <button class="option-btn" data-value="120" onclick="selectOption('time',120,this)">120s</button>
+                </div>
+            </div>
+
+            <div class="form-group glass-card">
+                <label>📦 الباكدجات</label>
+                <div class="packages-grid" id="packages-grid"></div>
+                <button class="btn btn-accent btn-small" onclick="randomPackages()" style="margin-top:12px">🎲 عشوائي</button>
+            </div>
+
+            <button class="btn btn-primary btn-large" onclick="startGame()">🚀 يلا نبدأ!</button>
+            <button class="btn btn-ghost" onclick="showScreen('screen-home')">↩ رجوع</button>
+        </div>
+    </div>
+
+    <!-- شاشة تسليم الموبايل -->
+    <div id="screen-handover" class="screen">
+        <div class="container center-content">
+            <div class="handover-card glass-card-big">
+                <div class="handover-icon">📱</div>
+                <h2 class="screen-title" id="handover-title">ادي الموبايل لـ</h2>
+                <div class="player-name-big" id="handover-player"></div>
+                <button class="btn btn-primary btn-large" id="handover-btn" onclick="confirmHandover()"></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- شاشة عرض الكروت -->
+    <div id="screen-cards" class="screen">
+        <div class="container center-content">
+            <div class="card-reveal glass-card-big">
+                <div class="check-icon">✅</div>
+                <h3>تم تحديد كارتك!</h3>
+                <p class="card-hint">انت مش هتشوف كارتك.. بس هتشوف كروت الباقي 👀</p>
+            </div>
+            <div class="others-cards" id="others-cards"></div>
+            <button class="btn btn-primary btn-large" onclick="nextHandover()">التالي ➡️</button>
+        </div>
+    </div>
+
+    <!-- شاشة الجولة -->
+    <div id="screen-round" class="screen">
+        <div class="container center-content">
+            <div class="round-header">
+                <span class="round-badge" id="round-badge">الجولة 1</span>
+                <div class="timer-wrapper">
+                    <svg class="timer-svg" viewBox="0 0 140 140">
+                        <circle class="timer-bg-circle" cx="70" cy="70" r="62"/>
+                        <circle class="timer-progress-circle" id="timer-progress" cx="70" cy="70" r="62"/>
+                    </svg>
+                    <div class="timer-circle" id="timer-circle">
+                        <span id="timer-text">60</span>
+                    </div>
+                </div>
+            </div>
+            <div class="turn-info glass-card-big">
+                <p class="turn-label">دلوقتي 🎙️</p>
+                <div class="turn-asker" id="turn-asker"></div>
+                <div class="turn-arrow-wrapper">
+                    <div class="turn-arrow-line"></div>
+                    <span class="turn-arrow-text">يسأل</span>
+                    <div class="turn-arrow-line"></div>
+                </div>
+                <div class="turn-answerer" id="turn-answerer"></div>
+            </div>
+            <button class="btn btn-primary btn-large" id="next-turn-btn" onclick="nextTurn()">التالي ➡️</button>
+        </div>
+    </div>
+
+    <!-- شاشة التخمين - تسليم -->
+    <div id="screen-guess-handover" class="screen">
+        <div class="container center-content">
+            <div class="handover-card glass-card-big">
+                <div class="handover-icon">🤔</div>
+                <h2 class="screen-title">وقت التخمين!</h2>
+                <p class="guess-instruction">ادي الموبايل لـ</p>
+                <div class="player-name-big" id="guess-player-name"></div>
+                <p class="guess-sub">خمن انت مين؟ 🎭</p>
+                <button class="btn btn-primary btn-large" id="guess-handover-btn" onclick="showGuessOptions()"></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- شاشة التخمين - اختيارات -->
+    <div id="screen-guess" class="screen">
+        <div class="container center-content">
+            <h2 class="screen-title">انت مين؟ 🤔</h2>
+            <p class="guess-player-label" id="guess-label"></p>
+            <div class="guess-options" id="guess-options"></div>
+        </div>
+    </div>
+
+    <!-- شاشة نتيجة التخمين -->
+    <div id="screen-guess-result" class="screen">
+        <div class="container center-content">
+            <div class="glass-card-big" id="guess-result-content"></div>
+            <button class="btn btn-primary btn-large" onclick="nextGuess()">التالي ➡️</button>
+        </div>
+    </div>
+
+    <!-- شاشة النتيجة النهائية -->
+    <div id="screen-results" class="screen">
+        <div class="container center-content">
+            <div class="results-header">
+                <div class="trophy">🏆</div>
+                <h2 class="screen-title">النتيجة النهائية</h2>
+                <div class="party-name-result" id="party-name-result"></div>
+            </div>
+            <div class="winner-section glass-card-big" id="winner-section"></div>
+            <div class="scoreboard" id="scoreboard"></div>
+            <button class="btn btn-primary btn-large" onclick="playAgain()">🔄 نلعب تاني</button>
+            <button class="btn btn-ghost" onclick="showScreen('screen-home')">🏠 الرئيسية</button>
+        </div>
+    </div>
+
+</body>
+<script src="script.js"></script>
+</html>
