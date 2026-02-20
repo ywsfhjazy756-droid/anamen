@@ -2,263 +2,736 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>أنا مين؟ 🎭</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سوا - العب مع صحابك</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="particles" id="particles"></div>
+    <div id="toast" class="toast hidden"></div>
 
-    <!-- الخلفية المتحركة -->
-    <div class="bg-effects">
-        <div class="bg-orb bg-orb-1"></div>
-        <div class="bg-orb bg-orb-2"></div>
-        <div class="bg-orb bg-orb-3"></div>
-        <div class="floating-particles" id="particles"></div>
-    </div>
+    <button id="sound-toggle" class="sound-toggle" onclick="toggleSound()">
+        <svg id="sound-on-icon" width="22" height="22" viewBox="0 0 24 24" fill="none">
+            <path d="M3 9v6h4l5 5V4L7 9H3z" fill="#FFD700"/>
+            <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z" fill="#FFD700"/>
+            <path d="M19 12c0 2.97-1.65 5.54-4 6.71v2.06c3.45-1.28 6-4.72 6-8.77s-2.55-7.49-6-8.77v2.06c2.35 1.17 4 3.74 4 6.71z" fill="#FFD700"/>
+        </svg>
+        <svg id="sound-off-icon" class="hidden" width="22" height="22" viewBox="0 0 24 24" fill="none">
+            <path d="M3 9v6h4l5 5V4L7 9H3z" fill="#888"/>
+            <line x1="18" y1="9" x2="24" y2="15" stroke="#888" stroke-width="2"/>
+            <line x1="24" y1="9" x2="18" y2="15" stroke="#888" stroke-width="2"/>
+        </svg>
+    </button>
 
-    <!-- شاشة البداية -->
-    <div id="screen-home" class="screen active">
-        <div class="container center-content">
-            <div class="logo-section">
-                <div class="logo-glow">
-                    <div class="logo-icon">🎭</div>
-                </div>
-                <h1 class="game-title">أنا مين؟</h1>
-                <div class="title-line"></div>
-                <p class="game-subtitle">اللعبة الجماعية الأمورة 🔥</p>
-                <p class="game-desc">كل واحد عنده كارت مش شايفه.. لازم يسأل ويخمن هو مين!</p>
-            </div>
-            <div class="home-buttons">
-                <button class="btn btn-primary btn-large pulse-glow" onclick="showSetup()">🎉 اعمل فورة</button>
-                <button class="btn btn-glass btn-large" onclick="showHowToPlay()">📖 إزاي نلعب؟</button>
-            </div>
-            <div class="home-footer">
-                <div class="footer-chips">
-                    <span class="chip">👥 2-10 لاعبين</span>
-                    <span class="chip">📱 جهاز واحد</span>
-                    <span class="chip">⚡ أوفلاين</span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- شاشة الشرح -->
-    <div id="screen-howto" class="screen">
-        <div class="container">
-            <div class="howto-header">
-                <h2 class="screen-title">📖 إزاي نلعب؟</h2>
-                <p class="howto-subtitle">شرح سريع في 4 خطوات</p>
-            </div>
-
-            <div class="howto-steps">
-                <div class="howto-step glass-card">
-                    <div class="step-number">1</div>
-                    <div class="step-content">
-                        <h3>⚙️ جهّز الفورة</h3>
-                        <p>ضيف أسماء اللاعبين واختار الباكدجات اللي عايزها (كورة، أنمي، أكلات...) وحدد عدد الجولات والوقت.</p>
-                    </div>
-                </div>
-
-                <div class="howto-step glass-card">
-                    <div class="step-number">2</div>
-                    <div class="step-content">
-                        <h3>🎴 شوف كروت صحابك</h3>
-                        <p>كل لاعب بياخد الموبايل ويشوف كروت الباقي بس مش بيشوف كارته! كارتك سر عليك وبس 😄</p>
-                    </div>
-                </div>
-
-                <div class="howto-step glass-card">
-                    <div class="step-number">3</div>
-                    <div class="step-content">
-                        <h3>❓ اسأل واعرف</h3>
-                        <p>في كل جولة، اللاعبين بيسألوا بعض أسئلة أيوه/لأ عشان يعرفوا هم مين. الموبايل بينظم الدور.</p>
-                    </div>
-                </div>
-
-                <div class="howto-step glass-card">
-                    <div class="step-number">4</div>
-                    <div class="step-content">
-                        <h3>🤔 خمّن!</h3>
-                        <p>لما الوقت يخلص، كل لاعب يخمن هو مين. لو صح +2 نقطة، لو غلط -1 نقطة. اللي نقطه أكتر يكسب! 🏆</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="howto-tips glass-card">
-                <h3>💡 نصائح</h3>
-                <ul>
-                    <li>اسأل أسئلة ذكية زي "أنا حاجة بتتاكل؟" أو "أنا شخص مشهور؟"</li>
-                    <li>حاول تتذكر إجابات الناس عشان تجمع معلومات</li>
-                    <li>ممكن تضلل صحابك بإجاباتك 😈</li>
-                </ul>
-            </div>
-
-            <button class="btn btn-primary btn-large" onclick="showScreen('screen-home')">👍 فهمت، رجّعني!</button>
-        </div>
-    </div>
-
-    <!-- شاشة الإعدادات -->
-    <div id="screen-setup" class="screen">
-        <div class="container">
-            <h2 class="screen-title">⚙️ إعدادات الفورة</h2>
-
-            <div class="form-group glass-card">
-                <label>🏷️ اسم الفورة</label>
-                <input type="text" id="partyName" placeholder="مثلاً: قعدة صحاب" maxlength="30">
-            </div>
-
-            <div class="form-group glass-card">
-                <label>📝 وصف (اختياري)</label>
-                <input type="text" id="partyDesc" placeholder="مثلاً: عند أحمد في البيت" maxlength="50">
-            </div>
-
-            <div class="form-group glass-card">
-                <label>👥 اللاعبين</label>
-                <div id="players-list" class="players-list"></div>
-                <div class="add-player-row">
-                    <input type="text" id="newPlayerName" placeholder="اسم اللاعب" maxlength="20" onkeypress="if(event.key==='Enter')addPlayer()">
-                    <button class="btn btn-secondary btn-small" onclick="addPlayer()">+ ضيف</button>
-                </div>
-                <p class="hint" id="players-count">عدد اللاعبين: 0 (الحد الأدنى 2)</p>
-            </div>
-
-            <div class="form-group glass-card">
-                <label>🔄 عدد الجولات</label>
-                <div class="options-row" id="rounds-options">
-                    <button class="option-btn" data-value="1" onclick="selectOption('rounds',1,this)">1</button>
-                    <button class="option-btn" data-value="2" onclick="selectOption('rounds',2,this)">2</button>
-                    <button class="option-btn selected" data-value="4" onclick="selectOption('rounds',4,this)">4</button>
-                    <button class="option-btn" data-value="5" onclick="selectOption('rounds',5,this)">5</button>
-                    <button class="option-btn" data-value="7" onclick="selectOption('rounds',7,this)">7</button>
-                    <button class="option-btn" data-value="10" onclick="selectOption('rounds',10,this)">10</button>
-                </div>
-            </div>
-
-            <div class="form-group glass-card">
-                <label>⏱️ وقت الجولة</label>
-                <div class="options-row" id="time-options">
-                    <button class="option-btn" data-value="20" onclick="selectOption('time',20,this)">20s</button>
-                    <button class="option-btn" data-value="40" onclick="selectOption('time',40,this)">40s</button>
-                    <button class="option-btn selected" data-value="60" onclick="selectOption('time',60,this)">60s</button>
-                    <button class="option-btn" data-value="90" onclick="selectOption('time',90,this)">90s</button>
-                    <button class="option-btn" data-value="120" onclick="selectOption('time',120,this)">120s</button>
-                </div>
-            </div>
-
-            <div class="form-group glass-card">
-                <label>📦 الباكدجات</label>
-                <div class="packages-grid" id="packages-grid"></div>
-                <button class="btn btn-accent btn-small" onclick="randomPackages()" style="margin-top:12px">🎲 عشوائي</button>
-            </div>
-
-            <button class="btn btn-primary btn-large" onclick="startGame()">🚀 يلا نبدأ!</button>
-            <button class="btn btn-ghost" onclick="showScreen('screen-home')">↩ رجوع</button>
-        </div>
-    </div>
-
-    <!-- شاشة تسليم الموبايل -->
-    <div id="screen-handover" class="screen">
-        <div class="container center-content">
-            <div class="handover-card glass-card-big">
-                <div class="handover-icon">📱</div>
-                <h2 class="screen-title" id="handover-title">ادي الموبايل لـ</h2>
-                <div class="player-name-big" id="handover-player"></div>
-                <button class="btn btn-primary btn-large" id="handover-btn" onclick="confirmHandover()"></button>
-            </div>
-        </div>
-    </div>
-
-    <!-- شاشة عرض الكروت -->
-    <div id="screen-cards" class="screen">
-        <div class="container center-content">
-            <div class="card-reveal glass-card-big">
-                <div class="check-icon">✅</div>
-                <h3>تم تحديد كارتك!</h3>
-                <p class="card-hint">انت مش هتشوف كارتك.. بس هتشوف كروت الباقي 👀</p>
-            </div>
-            <div class="others-cards" id="others-cards"></div>
-            <button class="btn btn-primary btn-large" onclick="nextHandover()">التالي ➡️</button>
-        </div>
-    </div>
-
-    <!-- شاشة الجولة -->
-    <div id="screen-round" class="screen">
-        <div class="container center-content">
-            <div class="round-header">
-                <span class="round-badge" id="round-badge">الجولة 1</span>
-                <div class="timer-wrapper">
-                    <svg class="timer-svg" viewBox="0 0 140 140">
-                        <circle class="timer-bg-circle" cx="70" cy="70" r="62"/>
-                        <circle class="timer-progress-circle" id="timer-progress" cx="70" cy="70" r="62"/>
+    <!-- ============ الشاشة الرئيسية ============ -->
+    <div id="home-screen" class="screen active">
+        <div class="home-content">
+            <div class="logo-container">
+                <div class="logo-icon">
+                    <svg width="90" height="90" viewBox="0 0 90 90" fill="none">
+                        <circle cx="45" cy="45" r="42" stroke="#FFD700" stroke-width="3" fill="rgba(255,215,0,0.08)"/>
+                        <circle cx="32" cy="36" r="5" fill="#FFD700"/><circle cx="32" cy="36" r="2" fill="#1a0533"/>
+                        <circle cx="58" cy="36" r="5" fill="#FFD700"/><circle cx="58" cy="36" r="2" fill="#1a0533"/>
+                        <path d="M30 52 Q45 66 60 52" stroke="#FFD700" stroke-width="3" fill="none" stroke-linecap="round"/>
                     </svg>
-                    <div class="timer-circle" id="timer-circle">
-                        <span id="timer-text">60</span>
+                </div>
+                <h1 class="logo">سوا</h1>
+                <p class="tagline">العب مع صحابك على جهاز واحد!</p>
+                <div class="tagline-decoration"><span></span><span></span><span></span></div>
+            </div>
+
+            <div class="meme-card-container">
+                <div class="meme-card">
+                    <img src="meme-home.png" alt="ميم" class="meme-card-img" onerror="this.style.display='none'">
+                    <p class="meme-card-text" id="home-meme-text"></p>
+                </div>
+            </div>
+
+            <div class="section-label">🎮 الألعاب</div>
+            <div class="games-list">
+                <button class="game-btn" onclick="playClick(); openGame('ana-meen')">
+                    <div class="game-btn-icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <circle cx="24" cy="16" r="10" stroke="#4a0e8f" stroke-width="2.5" fill="rgba(74,14,143,0.1)"/>
+                            <path d="M8 44 C8 32 40 32 40 44" stroke="#4a0e8f" stroke-width="2.5" fill="rgba(74,14,143,0.05)"/>
+                            <text x="24" y="20" text-anchor="middle" font-size="12" fill="#4a0e8f" font-weight="bold">?</text>
+                        </svg>
                     </div>
+                    <div class="game-btn-text">
+                        <span class="game-title">أنا مين؟</span>
+                        <span class="game-desc">اعرف انت مين من أسئلة صحابك</span>
+                    </div>
+                    <div class="game-btn-arrow"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M15 6L9 12L15 18" stroke="#4a0e8f" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </button>
+                <button class="game-btn" onclick="playClick(); openGame('kalma')">
+                    <div class="game-btn-icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <rect x="6" y="10" width="36" height="28" rx="6" stroke="#4a0e8f" stroke-width="2.5" fill="rgba(74,14,143,0.1)"/>
+                            <line x1="14" y1="20" x2="34" y2="20" stroke="#4a0e8f" stroke-width="2" stroke-linecap="round"/>
+                            <line x1="14" y1="26" x2="28" y2="26" stroke="#4a0e8f" stroke-width="2" stroke-linecap="round"/>
+                            <line x1="14" y1="32" x2="22" y2="32" stroke="#e74c3c" stroke-width="2" stroke-linecap="round"/>
+                            <line x1="12" y1="30" x2="24" y2="34" stroke="#e74c3c" stroke-width="2.5" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <div class="game-btn-text">
+                        <span class="game-title">عدّي الكلمة بس ماتقولهاش</span>
+                        <span class="game-desc">وصّف الكلمة من غير ما تقولها</span>
+                    </div>
+                    <div class="game-btn-arrow"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M15 6L9 12L15 18" stroke="#4a0e8f" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </button>
+                <button class="game-btn" onclick="playClick(); openGame('truth-dare')">
+                    <div class="game-btn-icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <circle cx="24" cy="24" r="18" stroke="#4a0e8f" stroke-width="2.5" fill="rgba(74,14,143,0.1)"/>
+                            <text x="14" y="28" font-size="14" fill="#3498db" font-weight="bold">ق</text>
+                            <text x="28" y="28" font-size="14" fill="#e74c3c" font-weight="bold">ا</text>
+                            <line x1="24" y1="10" x2="24" y2="38" stroke="#4a0e8f" stroke-width="1.5" stroke-dasharray="3"/>
+                        </svg>
+                    </div>
+                    <div class="game-btn-text">
+                        <span class="game-title">قول أو اعمل</span>
+                        <span class="game-desc">أسئلة جريئة وتحديات مجنونة!</span>
+                    </div>
+                    <div class="game-btn-arrow"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M15 6L9 12L15 18" stroke="#4a0e8f" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </button>
+                <button class="game-btn" onclick="playClick(); openGame('quiz')">
+                    <div class="game-btn-icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <rect x="8" y="6" width="32" height="36" rx="4" stroke="#4a0e8f" stroke-width="2.5" fill="rgba(74,14,143,0.1)"/>
+                            <circle cx="16" cy="18" r="3" stroke="#4a0e8f" stroke-width="1.5"/><path d="M20 18h12" stroke="#4a0e8f" stroke-width="1.5"/>
+                            <circle cx="16" cy="28" r="3" stroke="#27ae60" stroke-width="1.5" fill="rgba(39,174,96,0.2)"/><path d="M20 28h12" stroke="#4a0e8f" stroke-width="1.5"/>
+                            <path d="M14 26l2 2 4-4" stroke="#27ae60" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <div class="game-btn-text">
+                        <span class="game-title">اختبر نفسك</span>
+                        <span class="game-desc">أسئلة متنوعة في مواضيع مختلفة</span>
+                    </div>
+                    <div class="game-btn-arrow"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M15 6L9 12L15 18" stroke="#4a0e8f" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </button>
+            </div>
+
+            <div class="section-label">😂 ترفيه</div>
+            <div class="games-list">
+                <button class="game-btn fun-btn" onclick="playClick(); openGame('jokes')">
+                    <div class="game-btn-icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <circle cx="24" cy="24" r="18" stroke="#4a0e8f" stroke-width="2.5" fill="rgba(255,215,0,0.1)"/>
+                            <circle cx="18" cy="20" r="2" fill="#4a0e8f"/><circle cx="30" cy="20" r="2" fill="#4a0e8f"/>
+                            <path d="M16 30 Q24 38 32 30" stroke="#4a0e8f" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <div class="game-btn-text">
+                        <span class="game-title">نكت مصرية</span>
+                        <span class="game-desc">نكت تموتك من الضحك!</span>
+                    </div>
+                    <div class="game-btn-arrow"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M15 6L9 12L15 18" stroke="#4a0e8f" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </button>
+                <button class="game-btn fun-btn" onclick="playClick(); openGame('riddles')">
+                    <div class="game-btn-icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <circle cx="24" cy="20" r="14" stroke="#4a0e8f" stroke-width="2.5" fill="rgba(255,215,0,0.1)"/>
+                            <text x="24" y="26" text-anchor="middle" font-size="18" fill="#4a0e8f" font-weight="bold">؟</text>
+                            <rect x="20" y="36" width="8" height="4" rx="2" stroke="#4a0e8f" stroke-width="1.5" fill="rgba(255,215,0,0.2)"/>
+                            <line x1="24" y1="34" x2="24" y2="36" stroke="#4a0e8f" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <div class="game-btn-text">
+                        <span class="game-title">فوازير</span>
+                        <span class="game-desc">فوازير محتاجة تفكير!</span>
+                    </div>
+                    <div class="game-btn-arrow"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M15 6L9 12L15 18" stroke="#4a0e8f" stroke-width="2" stroke-linecap="round"/></svg></div>
+                </button>
+            </div>
+
+            <button class="share-btn" onclick="playClick(); shareWebsite()">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                    <circle cx="18" cy="5" r="3" stroke="#FFD700" stroke-width="2"/>
+                    <circle cx="6" cy="12" r="3" stroke="#FFD700" stroke-width="2"/>
+                    <circle cx="18" cy="19" r="3" stroke="#FFD700" stroke-width="2"/>
+                    <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" stroke="#FFD700" stroke-width="1.5"/>
+                    <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" stroke="#FFD700" stroke-width="1.5"/>
+                </svg>
+                شارك الموقع مع صحابك!
+            </button>
+
+            <div class="footer-credit">
+                <p>من تطوير <strong>يوسف حجازي</strong> بكل حب وتقدير</p>
+                <p class="footer-year">© 2026</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ أنا مين - البداية ============ -->
+    <div id="anameen-start" class="screen">
+        <div class="screen-header">
+            <button class="back-btn" onclick="playClick(); goHome()">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 10L13 4V16L5 10Z" fill="#fff"/></svg>
+                رجوع
+            </button>
+            <button class="rules-btn" onclick="playClick(); showRules('anameen')">
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="8" stroke="#FFD700" stroke-width="1.5"/><text x="9" y="13" text-anchor="middle" font-size="12" fill="#FFD700" font-weight="bold">؟</text></svg>
+                القواعد
+            </button>
+        </div>
+        <div class="game-hero">
+            <div class="game-hero-icon">
+                <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+                    <circle cx="40" cy="28" r="16" stroke="#FFD700" stroke-width="2.5" fill="rgba(255,215,0,0.12)"/>
+                    <path d="M12 72 C12 50 68 50 68 72" stroke="#FFD700" stroke-width="2.5" fill="rgba(255,215,0,0.08)"/>
+                    <text x="40" y="34" text-anchor="middle" font-size="18" fill="#FFD700" font-weight="bold">?</text>
+                </svg>
+            </div>
+            <h2 class="screen-title">أنا مين؟</h2>
+            <p class="screen-sub">اعرف انت مين من أسئلة صحابك!</p>
+        </div>
+        <div class="meme-card-container">
+            <div class="meme-card small-meme">
+                <img src="meme-anameen-start.png" alt="ميم" class="meme-card-img" onerror="this.style.display='none'">
+                <p class="meme-card-text" id="am-start-meme-text"></p>
+            </div>
+        </div>
+        <button class="big-btn glow-btn" onclick="playClick(); showAnameenSetup()">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M11 2L13.5 8H20L15 12.5L17 19L11 15L5 19L7 12.5L2 8H8.5L11 2Z" fill="#4a0e8f"/></svg>
+            اعمل فورة
+        </button>
+    </div>
+
+    <!-- إعدادات أنا مين -->
+    <div id="anameen-setup" class="screen">
+        <div class="screen-header">
+            <button class="back-btn" onclick="playClick(); showScreen('anameen-start')">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 10L13 4V16L5 10Z" fill="#fff"/></svg>
+                رجوع
+            </button>
+        </div>
+        <h2 class="screen-title">إعدادات الفورة</h2>
+        <div class="setup-card">
+            <div class="form-group">
+                <label>اسم الفورة</label>
+                <input type="text" id="am-session-name" placeholder="مثلاً: قعدة صحاب">
+            </div>
+            <div class="form-group">
+                <label>وصف (اختياري)</label>
+                <input type="text" id="am-session-desc" placeholder="وصف الفورة...">
+            </div>
+        </div>
+        <div class="setup-card">
+            <div class="form-group">
+                <label>أسماء اللاعبين</label>
+                <div id="am-players-list"></div>
+                <button class="add-btn" onclick="playClick(); addAmPlayer()">+ أضف لاعب</button>
+            </div>
+        </div>
+        <div class="setup-card">
+            <div class="form-group">
+                <label>عدد الجولات</label>
+                <div class="options-row" id="am-rounds-options"></div>
+            </div>
+            <div class="form-group">
+                <label>وقت الجولة (ثانية)</label>
+                <div class="options-row" id="am-time-options"></div>
+            </div>
+        </div>
+        <div class="setup-card">
+            <div class="form-group">
+                <label>الباكدجات</label>
+                <div class="packages-grid" id="am-packages"></div>
+                <button class="random-btn" onclick="playClick(); randomPackages()">🎲 عشوائي</button>
+            </div>
+        </div>
+        <button class="big-btn glow-btn" onclick="playClick(); startAnaMeen()">يلا نبدأ!</button>
+        <div id="am-error" class="error-msg"></div>
+    </div>
+
+    <!-- توزيع الكروت -->
+    <div id="anameen-distribute" class="screen">
+        <div class="screen-header">
+            <button class="end-game-btn" onclick="playClick(); confirmEndGame()">✕ إنهاء</button>
+        </div>
+        <div class="progress-indicator" id="am-dist-progress"></div>
+        <h2 class="screen-title">توزيع الكروت</h2>
+        <div class="distribute-card">
+            <div class="distribute-icon">
+                <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
+                    <rect x="10" y="5" width="30" height="40" rx="4" stroke="#FFD700" stroke-width="2" fill="rgba(255,215,0,0.1)" transform="rotate(-10 25 25)"/>
+                    <rect x="20" y="8" width="30" height="40" rx="4" stroke="#FFD700" stroke-width="2" fill="rgba(255,215,0,0.15)" transform="rotate(5 35 28)"/>
+                </svg>
+            </div>
+            <p id="am-dist-msg" class="big-text"></p>
+            <button id="am-dist-btn" class="big-btn" onclick="playClick(); amConfirmPlayer()"></button>
+        </div>
+        <div id="am-cards-view" class="cards-container hidden"></div>
+        <button id="am-next-player-btn" class="big-btn hidden" onclick="playClick(); amNextDistribute()">التالي ←</button>
+    </div>
+
+    <!-- أثناء الجولة -->
+    <div id="anameen-round" class="screen">
+        <div class="screen-header">
+            <button class="end-game-btn" onclick="playClick(); confirmEndGame()">✕ إنهاء</button>
+        </div>
+        <div class="round-info-bar">
+            <span class="round-badge">الجولة <span id="am-round-num"></span> من <span id="am-total-rounds"></span></span>
+        </div>
+        <div id="am-timer" class="timer-circle">
+            <svg class="timer-svg" width="160" height="160" viewBox="0 0 160 160">
+                <circle cx="80" cy="80" r="70" stroke="rgba(255,255,255,0.08)" stroke-width="8" fill="none"/>
+                <circle id="am-timer-circle" cx="80" cy="80" r="70" stroke="#FFD700" stroke-width="8" fill="none" stroke-linecap="round" stroke-dasharray="440" stroke-dashoffset="0" transform="rotate(-90 80 80)"/>
+            </svg>
+            <span id="am-timer-text" class="timer-text"></span>
+        </div>
+        <p id="am-turn-msg" class="big-text turn-msg"></p>
+        <button class="big-btn" onclick="playClick(); amNextTurn()">التالي ←</button>
+    </div>
+
+    <!-- تسليم الموبايل -->
+    <div id="anameen-handover" class="screen">
+        <div class="screen-header">
+            <button class="end-game-btn" onclick="playClick(); confirmEndGame()">✕ إنهاء</button>
+        </div>
+        <div class="handover-card">
+            <div class="meme-card-container">
+                <div class="meme-card">
+                    <img id="handover-meme-img-src" src="" alt="ميم" class="meme-card-img" onerror="this.style.display='none'">
+                    <p class="meme-card-text" id="handover-meme-text"></p>
                 </div>
             </div>
-            <div class="turn-info glass-card-big">
-                <p class="turn-label">دلوقتي 🎙️</p>
-                <div class="turn-asker" id="turn-asker"></div>
-                <div class="turn-arrow-wrapper">
-                    <div class="turn-arrow-line"></div>
-                    <span class="turn-arrow-text">يسأل</span>
-                    <div class="turn-arrow-line"></div>
-                </div>
-                <div class="turn-answerer" id="turn-answerer"></div>
-            </div>
-            <button class="btn btn-primary btn-large" id="next-turn-btn" onclick="nextTurn()">التالي ➡️</button>
+            <h2 class="screen-title" id="handover-title"></h2>
+            <p class="handover-funny" id="handover-funny"></p>
+            <button class="big-btn glow-btn" onclick="playClick(); showAmGuessFromHandover()">يلا خمّن!</button>
         </div>
     </div>
 
-    <!-- شاشة التخمين - تسليم -->
-    <div id="screen-guess-handover" class="screen">
-        <div class="container center-content">
-            <div class="handover-card glass-card-big">
-                <div class="handover-icon">🤔</div>
-                <h2 class="screen-title">وقت التخمين!</h2>
-                <p class="guess-instruction">ادي الموبايل لـ</p>
-                <div class="player-name-big" id="guess-player-name"></div>
-                <p class="guess-sub">خمن انت مين؟ 🎭</p>
-                <button class="btn btn-primary btn-large" id="guess-handover-btn" onclick="showGuessOptions()"></button>
+    <!-- التخمين -->
+    <div id="anameen-guess" class="screen">
+        <div class="screen-header">
+            <button class="end-game-btn" onclick="playClick(); confirmEndGame()">✕ إنهاء</button>
+        </div>
+        <h2 class="screen-title">وقت التخمين!</h2>
+        <p id="am-guess-msg" class="big-text"></p>
+        <div id="am-guess-options" class="guess-grid"></div>
+        <div id="am-guess-result" class="result-msg hidden"></div>
+        <div id="am-guess-meme" class="meme-card-container hidden">
+            <div class="meme-card small-meme">
+                <img id="am-guess-meme-img" src="" alt="ميم" class="meme-card-img" onerror="this.style.display='none'">
+                <p class="meme-card-text" id="am-guess-meme-text"></p>
             </div>
         </div>
+        <button id="am-guess-next" class="big-btn hidden" onclick="playClick(); amNextGuess()">التالي ←</button>
     </div>
 
-    <!-- شاشة التخمين - اختيارات -->
-    <div id="screen-guess" class="screen">
-        <div class="container center-content">
-            <h2 class="screen-title">انت مين؟ 🤔</h2>
-            <p class="guess-player-label" id="guess-label"></p>
-            <div class="guess-options" id="guess-options"></div>
+    <!-- نتائج الجولة -->
+    <div id="anameen-round-result" class="screen">
+        <div class="round-info-bar">
+            <span class="round-badge">نتيجة الجولة <span id="am-rr-round"></span></span>
         </div>
-    </div>
-
-    <!-- شاشة نتيجة التخمين -->
-    <div id="screen-guess-result" class="screen">
-        <div class="container center-content">
-            <div class="glass-card-big" id="guess-result-content"></div>
-            <button class="btn btn-primary btn-large" onclick="nextGuess()">التالي ➡️</button>
-        </div>
-    </div>
-
-    <!-- شاشة النتيجة النهائية -->
-    <div id="screen-results" class="screen">
-        <div class="container center-content">
-            <div class="results-header">
-                <div class="trophy">🏆</div>
-                <h2 class="screen-title">النتيجة النهائية</h2>
-                <div class="party-name-result" id="party-name-result"></div>
+        <h2 class="screen-title">نتيجة الجولة</h2>
+        <div class="meme-card-container">
+            <div class="meme-card small-meme">
+                <img src="meme-round-result.png" alt="ميم" class="meme-card-img" onerror="this.style.display='none'">
+                <p class="meme-card-text" id="am-rr-meme-text"></p>
             </div>
-            <div class="winner-section glass-card-big" id="winner-section"></div>
-            <div class="scoreboard" id="scoreboard"></div>
-            <button class="btn btn-primary btn-large" onclick="playAgain()">🔄 نلعب تاني</button>
-            <button class="btn btn-ghost" onclick="showScreen('screen-home')">🏠 الرئيسية</button>
+        </div>
+        <div class="result-card"><div id="am-round-scores"></div></div>
+        <button class="big-btn glow-btn" onclick="playClick(); amNextRound()">الجولة الجاية ←</button>
+    </div>
+
+    <!-- النتيجة النهائية -->
+    <div id="anameen-final" class="screen">
+        <div class="final-celebration">
+            <div class="trophy-icon">
+                <svg width="90" height="90" viewBox="0 0 90 90" fill="none">
+                    <path d="M28 18H62V40C62 54 45 62 45 62C45 62 28 54 28 40V18Z" stroke="#FFD700" stroke-width="3" fill="rgba(255,215,0,0.15)"/>
+                    <path d="M28 24H18C18 24 15 38 28 38" stroke="#FFD700" stroke-width="2.5" fill="none"/>
+                    <path d="M62 24H72C72 24 75 38 62 38" stroke="#FFD700" stroke-width="2.5" fill="none"/>
+                    <rect x="39" y="62" width="12" height="10" fill="rgba(255,215,0,0.2)" stroke="#FFD700" stroke-width="2"/>
+                    <rect x="32" y="72" width="26" height="6" rx="3" fill="rgba(255,215,0,0.2)" stroke="#FFD700" stroke-width="2"/>
+                    <text x="45" y="46" text-anchor="middle" font-size="20" fill="#FFD700" font-weight="bold">1</text>
+                </svg>
+            </div>
+            <h2 class="screen-title">النتيجة النهائية</h2>
+        </div>
+        <div class="meme-card-container">
+            <div class="meme-card small-meme">
+                <img src="meme-winner.png" alt="ميم" class="meme-card-img" onerror="this.style.display='none'">
+                <p class="meme-card-text" id="am-final-meme-text"></p>
+            </div>
+        </div>
+        <div class="result-card"><div id="am-final-scores"></div></div>
+        <p id="am-winner" class="winner-text"></p>
+        <div class="final-btns">
+            <button class="big-btn glow-btn" onclick="playClick(); goHome()">الرئيسية</button>
+            <button class="share-btn" onclick="playClick(); shareResult('anameen')">📤 شارك النتيجة</button>
         </div>
     </div>
 
+    <!-- ============ عدّي الكلمة ============ -->
+    <div id="kalma-start" class="screen">
+        <div class="screen-header">
+            <button class="back-btn" onclick="playClick(); goHome()">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 10L13 4V16L5 10Z" fill="#fff"/></svg>
+                رجوع
+            </button>
+            <button class="rules-btn" onclick="playClick(); showRules('kalma')">
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="8" stroke="#FFD700" stroke-width="1.5"/><text x="9" y="13" text-anchor="middle" font-size="12" fill="#FFD700" font-weight="bold">؟</text></svg>
+                القواعد
+            </button>
+        </div>
+        <div class="game-hero">
+            <div class="game-hero-icon">
+                <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+                    <rect x="10" y="15" width="60" height="45" rx="10" stroke="#FFD700" stroke-width="2.5" fill="rgba(255,215,0,0.08)"/>
+                    <line x1="22" y1="30" x2="58" y2="30" stroke="#FFD700" stroke-width="2" stroke-linecap="round"/>
+                    <line x1="22" y1="38" x2="50" y2="38" stroke="#FFD700" stroke-width="2" stroke-linecap="round"/>
+                    <line x1="22" y1="46" x2="38" y2="46" stroke="#e74c3c" stroke-width="2" stroke-linecap="round"/>
+                    <line x1="18" y1="44" x2="42" y2="48" stroke="#e74c3c" stroke-width="3" stroke-linecap="round"/>
+                </svg>
+            </div>
+            <h2 class="screen-title">عدّي الكلمة بس ماتقولهاش</h2>
+            <p class="screen-sub">وصّف الكلمة من غير ما تقولها!</p>
+        </div>
+        <div class="meme-card-container">
+            <div class="meme-card small-meme">
+                <img src="meme-kalma-start.png" alt="ميم" class="meme-card-img" onerror="this.style.display='none'">
+                <p class="meme-card-text" id="kl-start-meme-text"></p>
+            </div>
+        </div>
+        <button class="big-btn glow-btn" onclick="playClick(); showKalmaSetup()">ابدأ اللعبة</button>
+    </div>
+
+    <!-- إعدادات عدي الكلمة -->
+    <div id="kalma-setup" class="screen">
+        <div class="screen-header">
+            <button class="back-btn" onclick="playClick(); showScreen('kalma-start')">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 10L13 4V16L5 10Z" fill="#fff"/></svg>
+                رجوع
+            </button>
+        </div>
+        <h2 class="screen-title">إعدادات اللعبة</h2>
+        <div class="setup-card">
+            <div class="form-group">
+                <label>أسماء اللاعبين</label>
+                <div id="kl-players-list"></div>
+                <button class="add-btn" onclick="playClick(); addKlPlayer()">+ أضف لاعب</button>
+            </div>
+        </div>
+        <div class="setup-card">
+            <div class="form-group">
+                <label>عدد الجولات</label>
+                <div class="options-row" id="kl-rounds-options"></div>
+            </div>
+            <div class="form-group">
+                <label>وقت الجولة الكاملة (ثانية)</label>
+                <div class="options-row" id="kl-time-options"></div>
+            </div>
+        </div>
+        <button class="big-btn glow-btn" onclick="playClick(); startKalma()">يلا نبدأ!</button>
+        <div id="kl-error" class="error-msg"></div>
+    </div>
+
+    <!-- دور اللاعب في عدي الكلمة -->
+    <div id="kalma-turn" class="screen">
+        <div class="screen-header">
+            <button class="end-game-btn" onclick="playClick(); confirmEndGame()">✕ إنهاء</button>
+        </div>
+        <div class="round-info-bar">
+            <span class="round-badge">الجولة <span id="kl-round-num"></span> من <span id="kl-total-rounds"></span></span>
+        </div>
+        <div class="kalma-top-bar">
+            <div id="kl-timer" class="timer-circle small-timer">
+                <svg class="timer-svg" width="100" height="100" viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="42" stroke="rgba(255,255,255,0.08)" stroke-width="6" fill="none"/>
+                    <circle id="kl-timer-circle" cx="50" cy="50" r="42" stroke="#FFD700" stroke-width="6" fill="none" stroke-linecap="round" stroke-dasharray="264" stroke-dashoffset="0" transform="rotate(-90 50 50)"/>
+                </svg>
+                <span id="kl-timer-text" class="timer-text small-timer-text"></span>
+            </div>
+            <div class="player-turn-info">
+                <p id="kl-player-name" class="player-turn-name"></p>
+                <p class="turn-notification" id="kl-turn-notif">دورك دلوقتي!</p>
+            </div>
+        </div>
+        <div id="kl-word-card" class="word-card">
+            <p class="word-main" id="kl-main-word"></p>
+            <div class="word-divider"></div>
+            <p class="word-forbidden-label">🚫 ممنوع تقول:</p>
+            <div id="kl-forbidden-words" class="forbidden-list"></div>
+        </div>
+        <div class="action-btns">
+            <button class="success-btn" onclick="klCorrect()">✓ صح</button>
+            <button class="fail-btn" onclick="klWrong()">✕ قالها!</button>
+            <button class="skip-btn" onclick="klSkip()">⏭ تخطي</button>
+        </div>
+    </div>
+
+    <!-- نتائج جولة عدي الكلمة -->
+    <div id="kalma-round-result" class="screen">
+        <div class="round-info-bar">
+            <span class="round-badge">نتيجة الجولة <span id="kl-rr-round"></span></span>
+        </div>
+        <h2 class="screen-title">نتيجة الجولة</h2>
+        <div class="meme-card-container">
+            <div class="meme-card small-meme">
+                <img src="meme-kalma-round.png" alt="ميم" class="meme-card-img" onerror="this.style.display='none'">
+                <p class="meme-card-text" id="kl-rr-meme-text"></p>
+            </div>
+        </div>
+        <div class="result-card"><div id="kl-round-scores"></div></div>
+        <button class="big-btn glow-btn" onclick="playClick(); klNextRound()">الجولة الجاية ←</button>
+    </div>
+
+    <!-- النتيجة النهائية عدي الكلمة -->
+    <div id="kalma-final" class="screen">
+        <div class="final-celebration">
+            <div class="trophy-icon">
+                <svg width="90" height="90" viewBox="0 0 90 90" fill="none">
+                    <path d="M28 18H62V40C62 54 45 62 45 62C45 62 28 54 28 40V18Z" stroke="#FFD700" stroke-width="3" fill="rgba(255,215,0,0.15)"/>
+                    <path d="M28 24H18C18 24 15 38 28 38" stroke="#FFD700" stroke-width="2.5" fill="none"/>
+                    <path d="M62 24H72C72 24 75 38 62 38" stroke="#FFD700" stroke-width="2.5" fill="none"/>
+                    <rect x="39" y="62" width="12" height="10" fill="rgba(255,215,0,0.2)" stroke="#FFD700" stroke-width="2"/>
+                    <rect x="32" y="72" width="26" height="6" rx="3" fill="rgba(255,215,0,0.2)" stroke="#FFD700" stroke-width="2"/>
+                </svg>
+            </div>
+            <h2 class="screen-title">النتيجة النهائية</h2>
+        </div>
+        <div class="meme-card-container">
+            <div class="meme-card small-meme">
+                <img src="meme-kalma-winner.png" alt="ميم" class="meme-card-img" onerror="this.style.display='none'">
+                <p class="meme-card-text" id="kl-final-meme-text"></p>
+            </div>
+        </div>
+        <div class="result-card"><div id="kl-final-scores"></div></div>
+        <p id="kl-winner" class="winner-text"></p>
+        <div class="final-btns">
+            <button class="big-btn glow-btn" onclick="playClick(); goHome()">الرئيسية</button>
+            <button class="share-btn" onclick="playClick(); shareResult('kalma')">📤 شارك النتيجة</button>
+        </div>
+    </div>
+
+    <!-- ============ قول أو اعمل ============ -->
+    <div id="td-start" class="screen">
+        <div class="screen-header">
+            <button class="back-btn" onclick="playClick(); goHome()">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 10L13 4V16L5 10Z" fill="#fff"/></svg>
+                رجوع
+            </button>
+            <button class="rules-btn" onclick="playClick(); showRules('td')">
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="8" stroke="#FFD700" stroke-width="1.5"/><text x="9" y="13" text-anchor="middle" font-size="12" fill="#FFD700" font-weight="bold">؟</text></svg>
+                القواعد
+            </button>
+        </div>
+        <div class="game-hero">
+            <div class="game-hero-icon">
+                <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+                    <circle cx="40" cy="40" r="30" stroke="#FFD700" stroke-width="2.5" fill="rgba(255,215,0,0.08)"/>
+                    <text x="25" y="46" font-size="22" fill="#3498db" font-weight="bold">ق</text>
+                    <text x="48" y="46" font-size="22" fill="#e74c3c" font-weight="bold">ا</text>
+                    <line x1="40" y1="15" x2="40" y2="65" stroke="rgba(255,215,0,0.3)" stroke-width="1.5" stroke-dasharray="4"/>
+                </svg>
+            </div>
+            <h2 class="screen-title">قول أو اعمل</h2>
+            <p class="screen-sub">أسئلة جريئة وتحديات مجنونة!</p>
+        </div>
+        <div class="meme-card-container">
+            <div class="meme-card small-meme">
+                <img src="meme-td-start.png" alt="ميم" class="meme-card-img" onerror="this.style.display='none'">
+                <p class="meme-card-text" id="td-start-meme-text"></p>
+            </div>
+        </div>
+        <button class="big-btn glow-btn" onclick="playClick(); showTdSetup()">يلا نبدأ!</button>
+    </div>
+
+    <!-- إعدادات قول أو اعمل -->
+    <div id="td-setup" class="screen">
+        <div class="screen-header">
+            <button class="back-btn" onclick="playClick(); showScreen('td-start')">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 10L13 4V16L5 10Z" fill="#fff"/></svg>
+                رجوع
+            </button>
+        </div>
+        <h2 class="screen-title">أضف اللاعبين</h2>
+        <div class="setup-card">
+            <div class="form-group">
+                <label>أسماء اللاعبين</label>
+                <div id="td-players-list"></div>
+                <button class="add-btn" onclick="playClick(); addTdPlayer()">+ أضف لاعب</button>
+            </div>
+        </div>
+        <button class="big-btn glow-btn" onclick="playClick(); startTd()">يلا بينا!</button>
+        <div id="td-error" class="error-msg"></div>
+    </div>
+
+    <!-- لعب قول أو اعمل -->
+    <div id="td-play" class="screen">
+        <div class="screen-header">
+            <button class="end-game-btn" onclick="playClick(); confirmEndGame()">✕ إنهاء</button>
+        </div>
+        <div class="td-player-card">
+            <p class="td-turn-label">دور:</p>
+            <h2 id="td-current-player" class="td-player-name"></h2>
+        </div>
+        <div class="meme-card-container">
+            <div class="meme-card small-meme">
+                <img src="meme-td-play.png" alt="ميم" class="meme-card-img" onerror="this.style.display='none'">
+                <p class="meme-card-text" id="td-play-meme-text"></p>
+            </div>
+        </div>
+        <div class="td-buttons">
+            <button class="td-truth-btn" onclick="playClick(); tdTruth()">
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="12" stroke="#fff" stroke-width="2"/><text x="14" y="19" text-anchor="middle" font-size="14" fill="#fff" font-weight="bold">؟</text></svg>
+                قول
+            </button>
+            <button class="td-dare-btn" onclick="playClick(); tdDare()">
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M14 4L18 12H24L19 17L21 24L14 20L7 24L9 17L4 12H10L14 4Z" stroke="#fff" stroke-width="2" fill="none"/></svg>
+                اعمل
+            </button>
+        </div>
+        <div id="td-challenge-card" class="td-challenge hidden">
+            <p id="td-challenge-text" class="td-challenge-text"></p>
+            <button class="skip-btn td-skip" onclick="playClick(); tdSkipChallenge()">⏭ تخطي</button>
+        </div>
+        <button id="td-next-btn" class="big-btn hidden" onclick="playClick(); tdNext()">اللاعب الجاي ←</button>
+    </div>
+
+    <!-- ============ اختبر نفسك ============ -->
+    <div id="quiz-start" class="screen">
+        <div class="screen-header">
+            <button class="back-btn" onclick="playClick(); goHome()">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 10L13 4V16L5 10Z" fill="#fff"/></svg>
+                رجوع
+            </button>
+            <button class="rules-btn" onclick="playClick(); showRules('quiz')">
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="8" stroke="#FFD700" stroke-width="1.5"/><text x="9" y="13" text-anchor="middle" font-size="12" fill="#FFD700" font-weight="bold">؟</text></svg>
+                القواعد
+            </button>
+        </div>
+        <div class="game-hero">
+            <div class="game-hero-icon">
+                <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+                    <rect x="12" y="8" width="56" height="64" rx="8" stroke="#FFD700" stroke-width="2.5" fill="rgba(255,215,0,0.08)"/>
+                    <path d="M28 28l4 4 8-8" stroke="#2ecc71" stroke-width="3" stroke-linecap="round"/>
+                    <line x1="28" y1="44" x2="52" y2="44" stroke="#FFD700" stroke-width="2" stroke-linecap="round"/>
+                    <line x1="28" y1="54" x2="44" y2="54" stroke="#FFD700" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </div>
+            <h2 class="screen-title">اختبر نفسك</h2>
+            <p class="screen-sub">اختار الباكدج وجاوب!</p>
+        </div>
+        <div class="meme-card-container">
+            <div class="meme-card small-meme">
+                <img src="meme-quiz-start.png" alt="ميم" class="meme-card-img" onerror="this.style.display='none'">
+                <p class="meme-card-text" id="quiz-start-meme-text"></p>
+            </div>
+        </div>
+        <div class="setup-card">
+            <div class="form-group">
+                <label>اختار الباكدج</label>
+                <div class="packages-grid" id="quiz-packages"></div>
+            </div>
+        </div>
+        <button class="big-btn glow-btn" onclick="playClick(); startQuiz()">يلا نبدأ!</button>
+        <div id="quiz-error" class="error-msg"></div>
+    </div>
+
+    <!-- سؤال الكويز -->
+    <div id="quiz-play" class="screen">
+        <div class="screen-header">
+            <button class="end-game-btn" onclick="playClick(); goHome()">✕ خروج</button>
+        </div>
+        <div class="round-info-bar">
+            <span class="round-badge">السؤال <span id="quiz-q-num"></span></span>
+            <span class="round-badge score-badge">النقاط: <span id="quiz-score">0</span></span>
+        </div>
+        <div class="quiz-category-badge" id="quiz-cat-badge"></div>
+        <div class="quiz-question-card">
+            <p id="quiz-question" class="quiz-question-text"></p>
+        </div>
+        <div id="quiz-options" class="quiz-options-grid"></div>
+        <div id="quiz-result-msg" class="result-msg hidden"></div>
+        <div id="quiz-meme-area" class="meme-card-container hidden">
+            <div class="meme-card small-meme">
+                <img id="quiz-meme-img" src="" alt="ميم" class="meme-card-img" onerror="this.style.display='none'">
+                <p class="meme-card-text" id="quiz-meme-text"></p>
+            </div>
+        </div>
+        <button id="quiz-next-btn" class="big-btn hidden" onclick="playClick(); quizNext()">السؤال الجاي ←</button>
+    </div>
+
+    <!-- ============ نكت ============ -->
+    <div id="jokes-screen" class="screen">
+        <div class="screen-header">
+            <button class="back-btn" onclick="playClick(); goHome()">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 10L13 4V16L5 10Z" fill="#fff"/></svg>
+                رجوع
+            </button>
+        </div>
+        <div class="game-hero">
+            <div class="game-hero-icon">
+                <svg width="70" height="70" viewBox="0 0 70 70" fill="none">
+                    <circle cx="35" cy="35" r="30" stroke="#FFD700" stroke-width="2.5" fill="rgba(255,215,0,0.08)"/>
+                    <circle cx="25" cy="28" r="3" fill="#FFD700"/><circle cx="45" cy="28" r="3" fill="#FFD700"/>
+                    <path d="M22 42 Q35 55 48 42" stroke="#FFD700" stroke-width="3" fill="none" stroke-linecap="round"/>
+                </svg>
+            </div>
+            <h2 class="screen-title">نكت مصرية</h2>
+            <p class="screen-sub">اضحك لحد ما تعيط!</p>
+        </div>
+        <div class="joke-card" id="joke-card">
+            <p id="joke-text" class="joke-text"></p>
+            <button class="copy-btn" onclick="playClick(); copyJoke()">📋 انسخ النكتة</button>
+        </div>
+        <button class="big-btn glow-btn" onclick="playClick(); showNewJoke()">نكتة تانية!</button>
+    </div>
+
+    <!-- ============ فوازير ============ -->
+    <div id="riddles-screen" class="screen">
+        <div class="screen-header">
+            <button class="back-btn" onclick="playClick(); goHome()">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 10L13 4V16L5 10Z" fill="#fff"/></svg>
+                رجوع
+            </button>
+        </div>
+        <div class="game-hero">
+            <div class="game-hero-icon">
+                <svg width="70" height="70" viewBox="0 0 70 70" fill="none">
+                    <circle cx="35" cy="28" r="20" stroke="#FFD700" stroke-width="2.5" fill="rgba(255,215,0,0.08)"/>
+                    <text x="35" y="35" text-anchor="middle" font-size="24" fill="#FFD700" font-weight="bold">؟</text>
+                    <rect x="29" y="52" width="12" height="6" rx="3" stroke="#FFD700" stroke-width="2" fill="rgba(255,215,0,0.15)"/>
+                    <line x1="35" y1="48" x2="35" y2="52" stroke="#FFD700" stroke-width="2.5"/>
+                </svg>
+            </div>
+            <h2 class="screen-title">فوازير</h2>
+            <p class="screen-sub">فكّر كويس قبل ما تجاوب!</p>
+        </div>
+        <div class="riddle-card" id="riddle-card">
+            <p id="riddle-text" class="riddle-text"></p>
+            <button id="riddle-answer-btn" class="riddle-show-btn" onclick="playClick(); showRiddleAnswer()">اعرف الإجابة</button>
+            <p id="riddle-answer" class="riddle-answer hidden"></p>
+            <button class="copy-btn" onclick="playClick(); copyRiddle()">📋 انسخ الفزورة</button>
+        </div>
+        <button class="big-btn glow-btn" onclick="playClick(); showNewRiddle()">فزورة تانية!</button>
+    </div>
+
+    <!-- Rules Modal -->
+    <div id="rules-modal" class="modal hidden">
+        <div class="modal-content">
+            <button class="modal-close" onclick="playClick(); closeRules()">✕</button>
+            <h3 id="rules-title" class="modal-title"></h3>
+            <div id="rules-body" class="modal-body"></div>
+        </div>
+    </div>
+
+    <!-- End Game Modal -->
+    <div id="end-modal" class="modal hidden">
+        <div class="modal-content modal-small">
+            <h3 class="modal-title">متأكد تنهي اللعبة؟</h3>
+            <p style="color:#b89ad4;margin-bottom:20px;">لو خرجت هتضيع كل حاجة يا باشا!</p>
+            <div class="modal-btns">
+                <button class="modal-confirm-btn" onclick="playClick(); endGameNow()">أيوه أنهيها</button>
+                <button class="modal-cancel-btn" onclick="playClick(); closeEndModal()">لأ كمّل</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
 </body>
-<script src="script.js"></script>
 </html>
